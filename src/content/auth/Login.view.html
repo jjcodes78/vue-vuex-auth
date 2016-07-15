@@ -1,0 +1,55 @@
+<div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span class="panel-title">Login</span>
+        </div>
+        <div class="panel-body">
+            <!--<pre>{{ $login | json }}</pre>-->
+
+            <div class="alert alert-danger" v-show="error != ''">
+                <p>{{ error }}</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <validator name="login">
+                        <form novalidate>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group has-feedback" :class="{ 'has-error': invalid($login.email) }">
+                                        <label for="email" class="input-control">E-Mail:</label>
+                                        <input type="text"
+                                               name="email"
+                                               class="form-control"
+                                               v-model="email"
+                                               v-validate:email="['required']" />
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"
+                                           v-if="invalid($login.email)"></i>
+                                    </div>
+                                    <div class="form-group has-feedback" :class="{ 'has-error': invalid($login.password) }">
+                                        <label for="password" class="input-control">Senha:</label>
+                                        <input type="password"
+                                               name="password"
+                                               class="form-control"
+                                               v-model="password"
+                                               v-validate:password="{ required: true, minlength: 4 }" />
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"
+                                           v-if="invalid($login.password)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button @click.prevent="submit" class="btn btn-primary btn-block" type="submit" :disabled="!$login.valid">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        Login
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </validator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

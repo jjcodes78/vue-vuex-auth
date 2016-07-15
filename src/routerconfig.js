@@ -1,18 +1,33 @@
-import MainContent from './content/MainContent.vue'
-import ResourceContent from './content/ResourceContent.vue'
-import VuexContent from './content/VuexContent.vue'
+import Dashboard from './content/default/Dashboard.vue'
+import Login from './content/auth/Login.vue'
+import Logout from './content/auth/Logout.vue'
+import NotFound from './content/default/NotFound.vue'
 
-
-const RouterConfig = {
+const routes = {
+    '*': {
+        component: NotFound
+    },
     '/': {
-        component: MainContent
+        component: Dashboard,
+        auth: true
     },
-    '/resourceExample': {
-        component: ResourceContent
+    '/auth/login': {
+        component: Login
     },
-    '/vuexExample': {
-        component: VuexContent
+    '/logout': {
+        component: Logout
     }
 }
 
-export default RouterConfig;
+export function routerConfig(router) {
+
+    router.map(routes)
+
+    router.beforeEach(function (transition) {
+        if(transition.to.auth && !router.app.userLogged) {
+            return transition.redirect('/auth/login')
+        } else {
+            transition.next()
+        }
+    })
+}
