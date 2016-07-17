@@ -9,7 +9,6 @@ import Main from '../content/default/Main.vue'
 import Login from '../content/auth/Login.vue'
 import Logout from '../content/auth/Logout.vue'
 import NotFound from '../content/default/NotFound.vue'
-import ApiError from '../content/default/ApiError.vue'
 import * as path from './paths'
 
 const routes = {

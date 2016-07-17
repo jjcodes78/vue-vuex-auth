@@ -38,7 +38,8 @@ npm run build
             * /default - componentes base/comuns
         * /router
             * config.js - configura o Vue-Router
-            * paths.js - arquivo com as rotas/urls da aplicação
+            * paths.js - lista das URLs
+            * routes.js - rotas da aplicação
         * /vuex (1)
             * /api - módulo de api para o vuex
             * /auth - módulo de autenticação
