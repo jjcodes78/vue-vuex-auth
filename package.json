@@ -1,7 +1,7 @@
 {
-  "name": "sge-front-vue",
+  "name": "vue-vuex-auth",
   "version": "0.0.1",
-  "description": "FrontEnd baseado no VueJs para o Sistema de Gerenciamento de Eventos/Festas (SGE/f) via API SGE",
+  "description": "Esqueleto base para uma aplicação web com sistema de autenticação via JWT-Auth",
   "author": "jjsquad <jorge.techinfo@gmail.com>",
   "scripts": {
     "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/build.js",
