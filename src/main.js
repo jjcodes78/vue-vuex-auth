@@ -9,8 +9,7 @@ Vue.use(VueValidator)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-//Define a instância de Router e a exporta
-export let router = new VueRouter()
+let router = new VueRouter()
 
 //Configura o Router
 routerConfig(router)
