@@ -2,7 +2,7 @@
     import notificationService from '../../vuex/notification/service'
     import authService from '../../vuex/auth/service'
     import authGetters from '../../vuex/auth/getters'
-    import userService from './userService'
+    import userService from '../../services/authService'
     import { HOME_URL, API_URL, AUTH_URL } from '../../router/paths'
 
     export default{

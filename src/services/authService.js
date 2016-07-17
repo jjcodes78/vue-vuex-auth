@@ -2,7 +2,7 @@
  * Created by squad on 16/07/16.
  */
 
-import { HOME_URL, API_URL, AUTH_URL, USER_PROFILE_URL } from '../../router/paths'
+import { HOME_URL, API_URL, AUTH_URL, USER_PROFILE_URL } from '.. /router/paths'
 
 /**
  * Se o login for bem sucedido obtém-se o profile do usuário logado
