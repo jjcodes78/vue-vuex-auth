@@ -6,7 +6,7 @@
  */
 import routes from './routes'
 import { LOGIN_URL } from './paths'
-import userService from '../content/auth/userService'
+import authService from '../services/authService'
 
 export function routerConfig(router) {
 
@@ -27,7 +27,7 @@ export function routerConfig(router) {
         if(transition.to.auth && !router.app.authenticated) {
             let storedToken = localStorage.getItem('jwt-token')
             if( storedToken !== null) {
-                userService.getUserProfile(router.app, storedToken).then(function (res) {
+                authService.getUserProfile(router.app, storedToken).then(function (res) {
                     let user = res.data.user
                     if (user !== null || user !== undefined) {
                         router.app.setUser(user)
