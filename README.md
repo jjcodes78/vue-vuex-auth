@@ -60,7 +60,7 @@ npm run build
 
 ```
 
-Cya! Jorge***jjsquad***Junior \o/
+Cya! Jorge ***jjsquad*** Junior \o/
 
 ### Links:
 
