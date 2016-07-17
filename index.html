@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue/VueRouter/VueResource/Vuex with JWT-Auth by jjsquad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Vue/VueRouter/VueResource/Vuex with JWT-Auth</h1>
+      <h2 class="project-tagline">Esqueleto base para uma aplicação web com sistema de autenticação via JWT</h2>
+      <a href="https://github.com/jjsquad/vue-vuex-auth" class="btn">View on GitHub</a>
+      <a href="https://github.com/jjsquad/vue-vuex-auth/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/jjsquad/vue-vuex-auth/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="vuevueresourcevueroutervuex-4vs-jwt-auth" class="anchor" href="#vuevueresourcevueroutervuex-4vs-jwt-auth" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vue/VueResource/VueRouter/Vuex (4Vs) JWT-Auth</h1>
+
+<blockquote>
+<p>Esqueleto base para uma aplicação web com sistema de autenticação via JWT incluído</p>
+
+<p><em>Skeleton basis for a web application with authentication system via JWT included</em></p>
+</blockquote>
+
+<h2>
+<a id="instalação-setup" class="anchor" href="#instala%C3%A7%C3%A3o-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instalação <em>(Setup)</em>
+</h2>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># install dependencies</span>
+npm install
+
+<span class="pl-c"># serve with hot reload at localhost:8080</span>
+npm run dev
+
+<span class="pl-c"># build for production with minification</span>
+npm run build</pre></div>
+
+<h2>
+<a id="o-que-está-incluso-what-is-included" class="anchor" href="#o-que-est%C3%A1-incluso-what-is-included" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>O que está incluso? <em>(What is included?)</em>
+</h2>
+
+<ul>
+<li>Vue</li>
+<li>Vue-Router</li>
+<li>Vue-Resource</li>
+<li>Vuex</li>
+<li>Vue-Validator</li>
+<li>Vue-Strap</li>
+<li>Bootstrap 3.3.6</li>
+</ul>
+
+<h2>
+<a id="estrutura-da-aplicação-application-structure" class="anchor" href="#estrutura-da-aplica%C3%A7%C3%A3o-application-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Estrutura da Aplicação <em>(Application Structure)</em>
+</h2>
+
+<ul>
+<li>/(root)
+
+<ul>
+<li>/assets - pasta de imagens e outros arquivos externos para a aplicação</li>
+<li>/dist - o build final ficará aqui</li>
+<li>/src - o código-fonte da aplicação
+
+<ul>
+<li>/content
+
+<ul>
+<li>/auth - componentes para autenticação</li>
+<li>/default - componentes base/comuns</li>
+</ul>
+</li>
+<li>/router
+
+<ul>
+<li>config.js - configura o Vue-Router</li>
+<li>paths.js - lista das URLs</li>
+<li>routes.js - rotas da aplicação</li>
+</ul>
+</li>
+<li>/services
+
+<ul>
+<li>authService.js -</li>
+</ul>
+</li>
+<li>/vuex (1)
+
+<ul>
+<li>/api - módulo de api para o vuex</li>
+<li>/auth - módulo de autenticação</li>
+<li>/notification - módulo de notificações</li>
+<li>store.js - Vuex store</li>
+</ul>
+</li>
+<li>App.vue - componente raiz da aplicação</li>
+<li>main.js - ponto de entrada da aplicação</li>
+</ul>
+</li>
+<li>index.html - container HTML da aplicação</li>
+</ul>
+</li>
+</ul>
+
+<p>(1) - os módulos Vuex criam cada um seus respectivos <em>state</em> e <em>mutations</em>, bem como seus <em>getters</em> e <em>actions</em>.</p>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ToDo:</h2>
+
+<pre><code> - melhorar este readme
+ - documentar o processo de autenticação usando JWT
+ - exemplos de como criar novos módulos
+ - muito mais!
+
+</code></pre>
+
+<p>Cya! Jorge <strong><em>jjsquad</em></strong> Junior \o/</p>
+
+<h3>
+<a id="links" class="anchor" href="#links" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Links:</h3>
+
+<ul>
+<li><a href="http://vuejs.org">Vue.js</a></li>
+<li><a href="https://github.com/vuejs/vue-resource">Vue-Resource</a></li>
+<li><a href="https://github.com/vuejs/vue-router">Vue-Router</a></li>
+<li><a href="https://github.com/vuejs/vuex">Vuex</a></li>
+<li><a href="https://github.com/vuejs/vue-validator">Vue-Validator</a></li>
+<li><a href="http://yuche.github.io/vue-strap">Vue-Strap</a></li>
+<li><a href="http://getbootstrap.com">Bootstrap</a></li>
+</ul>
+
+<p>For more information see the <a href="https://github.com/vuejs/vueify">docs for vueify</a>.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/jjsquad/vue-vuex-auth">Vue/VueRouter/VueResource/Vuex with JWT-Auth</a> is maintained by <a href="https://github.com/jjsquad">jjsquad</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
