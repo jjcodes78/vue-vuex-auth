@@ -1,19 +1,24 @@
 <script>
-    import authService from '../../vuex/auth/service'
-    export default {
-        vuex: {
-            actions: authService
-        },
+  import authService from '../../vuex/auth/service'
+  import { LOGIN_URL } from '../../router/paths'
 
-        route: {
-            activate ({ redirect }) {
-                this.logout()
-                redirect('/auth/login')
-            }
-        }
+  export default {
+
+    vuex: {
+      actions: {
+        logout: authService.logout
+      }
+    },
+
+    ready () {
+      this.logout()
+      this.$router.go(LOGIN_URL)
     }
+  }
 </script>
 
 <template>
-    <div></div>
+  <div></div>
 </template>
+
+

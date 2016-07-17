@@ -1,11 +1,5 @@
 <script>
     export default {
-
-        route: {
-            activate ({ redirect }) {
-                redirect('/')
-            }
-        }
     }
 </script>
 

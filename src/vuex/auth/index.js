@@ -10,16 +10,18 @@ const CLEAR_TOKEN = 'CLEAR_TOKEN'
 const state = {
   token: null,
   user: {},
-  userLogged: false
+  authenticated: false
 }
 
 const mutations = {
   [SET_USER] (state, user) {
     state.user = user
+    state.authenticated = true
   },
 
   [REMOVE_USER] (state) {
     state.user = {}
+    state.authenticated = false
   },
 
   [SET_TOKEN] (state, token) {

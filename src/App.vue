@@ -1,64 +1,82 @@
+<script>
+
+    import store from './vuex/store'
+    import authGetters from './vuex/auth/getters'
+    import authService from './vuex/auth/service'
+    import notificationGetters from './vuex/notification/getters'
+    import notificationService from './vuex/notification/service'
+    import Menu from './content/default/Menu.vue'
+    import alert from 'vue-strap/src/Alert.vue'
+
+    export default {
+
+        store,
+
+        vuex: {
+            getters: {
+                user: authGetters.user,
+                authenticated: authGetters.authenticated,
+                show: notificationGetters.show,
+                notifyOptions: notificationGetters.options
+            },
+
+            actions: {
+                setUser: authService.setUser,
+                logout: authService.logout,
+                dismissNotification: notificationService.dismissNotification
+            }
+        },
+
+        components: {
+            Menu,
+            alert
+        },
+
+        data () {
+            return {
+                showNotification: false
+            }
+        },
+
+        computed: {
+            alertIcon () {
+                return this.notifyOptions.type == 'success' ? 'glyphicon-ok-sign' :
+                        this.notifyOptions.type == 'danger' ? 'glyphicon-remove-sign' : 'glyphicon-info-sign'
+            }
+        },
+
+        watch: {
+            show (val) {
+                this.showNotification = val
+            },
+
+            showNotification (val) {
+                if(!val) {
+                    this.dismissNotification()
+                }
+            }
+        }
+    }
+</script>
+
 <template>
     <div id="app">
-        <nav class="navbar navbar-default">
-            <div class="navbar-header">
-                <span class="navbar-brand">vue-browcomplete with bootstrap</span>
-            </div>
-            <template v-if="userLogged">
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a v-link="{ path: '/' }" class="navbar-link">
-                                <i class="fa fa-home"></i>
-                                <span>Main Content</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a v-link="{ path: '/resourceExample' }" class="navbar-link">
-                                <i class="fa fa-link"></i>
-                                <span>Resource example</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a v-link="{ path: '/vuexExample' }" class="navbar-link">
-                                <i class="fa fa-bolt"></i>
-                                <span>Vuex example</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </template>
-        </nav>
+        <alert name="apiErrorAlert"
+               :show.sync="showNotification"
+               :duration="notifyOptions.duration || 3000"
+               :type="notifyOptions.type || 'success' "
+               width="400px"
+               placement="top-right"
+               dismissable
+        >
+            <i class="glyphicon" :class="alertIcon"></i>
+            <strong>{{ notifyOptions.title }}</strong>
+            <p>{{ notifyOptions.message }}</p>
+            <small><em>{{ notifyOptions.description }}</em></small>
+        </alert>
+        <menu :visible="authenticated" :user="user"></menu>
         <div class="container">
             <router-view></router-view>
         </div>
     </div>
 </template>
-<script>
-import store from './vuex/store'
-import { user, userLogged } from './vuex/auth/getters'
-
-export default {
-    store,
-
-    data () {
-        return { }
-    },
-
-    vuex: {
-        getters: {
-            user
-        }
-    },
-
-    computed: {
-        userLogged
-    }
-}
-</script>
-
-<style>
-    body {
-        font-family: Helvetica, sans-serif;
-    }
-</style>
