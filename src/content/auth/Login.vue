@@ -1,9 +1,9 @@
 <script>
-    import notificationService from '../../vuex/notification/service'
-    import authService from '../../vuex/auth/service'
+    import notificationActions from '../../vuex/notification/actions'
+    import authActions from '../../vuex/auth/actions'
     import authGetters from '../../vuex/auth/getters'
-    import userService from '../../services/authService'
-    import { HOME_URL, API_URL, AUTH_URL } from '../../router/paths'
+    import authService from '../../services/authService'
+    import { HOME_URL } from '../../router/paths'
 
     export default{
 
@@ -14,21 +14,12 @@
             },
 
             actions: {
-                setToken: authService.setToken,
-                setUser: authService.setUser,
-                logout: authService.logout,
-                showConnectionError: notificationService.connectionError,
-                showUserLoggedIn: notificationService.userLoggedIn,
-                showLoginNotAuthorized: notificationService.loginNotAuthorized
-            }
-        },
-
-        route: {
-            activate (transition) {
-                if (! this.authenticated ) {
-                    return transition.next()
-                }
-                transition.redirect(HOME_URL)
+                setToken: authActions.setToken,
+                setUser: authActions.setUser,
+                logout: authActions.logout,
+                showConnectionError: notificationActions.connectionError,
+                showUserLoggedIn: notificationActions.userLoggedIn,
+                showLoginNotAuthorized: notificationActions.loginNotAuthorized
             }
         },
 
@@ -63,13 +54,13 @@
                     password: this.password
                 }
 
-                userService.login(this, formBody).then(function (res) {
+                authService.login(this, formBody).then(function (res) {
                     let token = res.data.token
                     if(token !== undefined ) {
                         this.setToken(token)
 
-                        //USER PROFILE
-                        userService.getUserProfile(this, this.token).then(function (res) {
+                        //AUTH PROFILE
+                        authService.getUserProfile(this, token).then(function (res) {
                             let user = res.data.user
                             if( user !== null || user !== undefined) {
                                 this.setUser(user)

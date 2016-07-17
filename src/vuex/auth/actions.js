@@ -7,7 +7,7 @@
  *
  * @type {{setToken: (function(*, *=)), setUser: (function(*, *=)), logout: (function(*))}}
  */
-const authService = {
+const authActions = {
   /**
    * Armazena o token JWT do usuario autenticado na store e no localStorag
    * @param dispatch
@@ -38,4 +38,4 @@ const authService = {
   }
 }
 
-export default authService
+export default authActions

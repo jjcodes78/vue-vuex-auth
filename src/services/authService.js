@@ -2,7 +2,7 @@
  * Created by squad on 16/07/16.
  */
 
-import { HOME_URL, API_URL, AUTH_URL, USER_PROFILE_URL } from '.. /router/paths'
+import { API_AUTH_URL, API_LOGOUT_URL, API_USER_PROFILE_URL } from '../router/paths'
 
 /**
  * Se o login for bem sucedido obtém-se o profile do usuário logado
@@ -10,7 +10,7 @@ import { HOME_URL, API_URL, AUTH_URL, USER_PROFILE_URL } from '.. /router/paths'
  */
 const getUserProfile = function(context, token) {
   return context.$http({
-    url: API_URL + USER_PROFILE_URL,
+    url: API_USER_PROFILE_URL,
     method: 'GET',
     headers: {
       'Authorization': `Bearer:${token}`,
@@ -21,7 +21,7 @@ const getUserProfile = function(context, token) {
 
 const login = function (context, body) {
   return context.$http({
-    url: API_URL + AUTH_URL,
+    url: API_AUTH_URL,
     method: "POST",
     body: body,
     headers: {
@@ -30,7 +30,18 @@ const login = function (context, body) {
   })
 }
 
+const logout = function (context, token) {
+  return context.$http({
+    url: API_LOGOUT_URL,
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer:${token}`,
+    }
+  })
+}
+
 export default {
   getUserProfile,
-  login
+  login,
+  logout
 }

@@ -17,14 +17,11 @@ const routes = {
     auth: true
   },
   [path.LOGIN_URL]: {
-    component: Login
+    component: Login,
+    login: true
   },
   [path.LOGOUT_URL]: {
     component: Logout,
-    auth: true
-  },
-  [path.USER_PROFILE_URL]: {
-    component: Main,
     auth: true
   }
 }

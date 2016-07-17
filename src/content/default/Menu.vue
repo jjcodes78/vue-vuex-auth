@@ -1,13 +1,8 @@
 <script>
     import sidebar from 'vue-strap/src/Aside.vue'
-    import authService from '../../vuex/auth/service'
     import { HOME_URL, LOGOUT_URL } from '../../router/paths'
 
     export default {
-
-        vuex: {
-            actions: authService
-        },
 
         props: ['visible', 'user'],
 

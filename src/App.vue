@@ -2,9 +2,10 @@
 
     import store from './vuex/store'
     import authGetters from './vuex/auth/getters'
-    import authService from './vuex/auth/service'
+    import authActions from './vuex/auth/actions'
+    import authService from './services/authService'
     import notificationGetters from './vuex/notification/getters'
-    import notificationService from './vuex/notification/service'
+    import notificationActions from './vuex/notification/actions'
     import Menu from './content/default/Menu.vue'
     import alert from 'vue-strap/src/Alert.vue'
 
@@ -21,9 +22,14 @@
             },
 
             actions: {
-                setUser: authService.setUser,
-                logout: authService.logout,
-                dismissNotification: notificationService.dismissNotification
+                setToken: authActions.setToken,
+                setUser: authActions.setUser,
+                logout: authActions.logout,
+                dismissNotification: notificationActions.dismissNotification,
+                showLoginNotAuthorized: notificationActions.loginNotAuthorized,
+                showServerError: notificationActions.serverError,
+                showConnectionError: notificationActions.connectionError,
+                showInvalidToken: notificationActions.invalidToken
             }
         },
 
@@ -38,8 +44,45 @@
             }
         },
 
+        methods: {
+            checkCredentials () {
+                let storedToken = localStorage.getItem('jwt-token')
+
+                if( storedToken === null ) {
+                    return Promise.reject()
+                }
+
+                return authService.getUserProfile(this, storedToken).then(function (res) {
+
+                    let user = res.data.user
+                    //CREDENTIALS FOUND AND VALID
+                    this.setToken(storedToken)
+                    this.setUser(user)
+
+                }).catch(function (res) {
+
+                    switch (res.status) {
+                        case 400:
+                            this.showInvalidToken()
+                            break
+                        case 401:
+                            this.showLoginNotAuthorized()
+                            break
+                        case 500:
+                            router.app.showServerError()
+                            break
+                        default:
+                            this.showConnectionError()
+                            break
+                    }
+                    this.logout()
+
+                })
+            }
+        },
+
         computed: {
-            alertIcon () {
+            notificationIcon () {
                 return this.notifyOptions.type == 'success' ? 'glyphicon-ok-sign' :
                         this.notifyOptions.type == 'danger' ? 'glyphicon-remove-sign' : 'glyphicon-info-sign'
             }
@@ -69,7 +112,7 @@
                placement="top-right"
                dismissable
         >
-            <i class="glyphicon" :class="alertIcon"></i>
+            <i class="glyphicon" :class="notificationIcon"></i>
             <strong>{{ notifyOptions.title }}</strong>
             <p>{{ notifyOptions.message }}</p>
             <small><em>{{ notifyOptions.description }}</em></small>

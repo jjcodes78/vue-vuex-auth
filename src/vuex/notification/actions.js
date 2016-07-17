@@ -2,13 +2,16 @@
  * Created by squad on 16/07/16.
  */
 
-const notificationService = {
+const notificationActions = {
 
   dismissNotification({dispatch}) {
     dispatch('DISMISS_NOTIFICATION')
   },
   connectionError ({dispatch}) {
     dispatch('CONNECTION_ERROR')
+  },
+  serverError ({dispatch}) {
+    dispatch('INTERNAL_SERVER_ERROR')
   },
   userLoggedIn ({dispatch}) {
     dispatch('USER_LOGGED_IN')
@@ -18,8 +21,11 @@ const notificationService = {
   },
   loginNotAuthorized ({dispatch}) {
     dispatch('USER_UNAUTHORIZED')
+  },
+  invalidToken ({dispatch}) {
+    dispatch('INVALID_TOKEN')
   }
 
 }
 
-export default notificationService
+export default notificationActions
