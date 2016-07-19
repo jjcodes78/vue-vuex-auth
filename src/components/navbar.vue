@@ -12,7 +12,7 @@
 
     data () {
       return {
-        showSideBar: false,
+        showProfile: false,
         links
       }
     },
@@ -44,7 +44,7 @@
         <span class="navbar-brand">Vue/Vuex com JWT-Auth</span>
       </div>
       <template v-if="visible">
-        <sidebar :show.sync="showSideBar" placement="right" header="Perfil" :width="300">
+        <sidebar :show.sync="showProfile" placement="right" header="Perfil" :width="300">
           <div>
             <div class="row well-sm">
               <div class="col-md-3">
@@ -80,7 +80,16 @@
               </template>
             </li>
           </ul>
-
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <img :src="profileAvatar" class="img-circle" style="max-height:48px;width:auto;vertical-align:middle;">
+            </li>
+            <li>
+              <a href="#" class="navbar-link" @click="showProfile = true">
+                {{ user.name }}
+              </a>
+            </li>
+          </ul>
         </div>
       </template>
     </nav>
