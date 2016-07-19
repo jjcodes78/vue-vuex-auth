@@ -1,7 +1,6 @@
 <script>
   import authGetters from '../../vuex/auth/getters'
-  import authActions from '../../vuex/auth/actions'
-  import notificationActions from '../../vuex/notification/actions'
+  import notificationService from '../../services/notificationService'
   import authService from '../../services/authService'
   import { HOME_URL, LOGIN_URL } from '../../router/paths'
 
@@ -11,12 +10,6 @@
 
       getters: {
         token: authGetters.token
-      },
-
-      actions: {
-        logout: authActions.logout,
-        showUserLoggedOut: notificationActions.userLoggedOut,
-        showServerError: notificationActions.serverError
       }
     },
 
@@ -24,13 +17,13 @@
       activate (transition) {
 
         return authService.logout(this, this.token).then(function () {
-          this.logout()
-          this.showUserLoggedOut()
+          authService.removeAuthentication()
+          notificationService.show(notificationService.USER_LOGGED_OUT)
           transition.redirect(LOGIN_URL)
         }).catch(function (res) {
           //TODO: custom notification
           if ( res.status == 500 ) {
-            this.showServerError()
+            notificationService.show(notificationService.CONNECTION_ERROR)
           }
           transition.redirect(HOME_URL)
         })

@@ -1,5 +1,5 @@
 <script>
-    import notificationActions from '../../vuex/notification/actions'
+    import notificationService from '../../services/notificationService'
     import authActions from '../../vuex/auth/actions'
     import authGetters from '../../vuex/auth/getters'
     import authService from '../../services/authService'
@@ -15,12 +15,12 @@
 
             actions: {
                 setToken: authActions.setToken,
-                setUser: authActions.setUser,
-                logout: authActions.logout,
-                showConnectionError: notificationActions.connectionError,
-                showUserLoggedIn: notificationActions.userLoggedIn,
-                showLoginNotAuthorized: notificationActions.loginNotAuthorized
+                setUser: authActions.setUser
             }
+        },
+
+        components: {
+
         },
 
         data () {
@@ -64,19 +64,19 @@
                             let user = res.data.user
                             if( user !== null || user !== undefined) {
                                 this.setUser(user)
-                                this.showUserLoggedIn()
+                                notificationService.show(notificationService.USER_LOGGED_IN)
                                 this.$router.go(HOME_URL)
                             }
                         }.bind(this)).catch(function () {
-                            this.logout()
+                            authService.removeAuthentication()
                         })
                     }
                 }.bind(this)).catch(function (res) {
                     if( res.status == 401 ) {
-                        this.showLoginNotAuthorized()
+                        notificationService.show(notificationService.INVALID_TOKEN)
                     }
                     if( res.status == 0 ) {
-                        this.showConnectionError()
+                        notificationService.show(notificationService.CONNECTION_ERROR)
                     }
                 }.bind(this))
             }

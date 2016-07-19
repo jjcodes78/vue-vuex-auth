@@ -16,3 +16,9 @@ export const API_USER_PROFILE_URL = API_BASE_URL + '/auth/profile'
 export const HOME_URL = '/'
 export const LOGIN_URL = '/auth/login'
 export const LOGOUT_URL = '/auth/logout'
+
+// Navbar component links
+export const links = [
+  { title: 'Home', icon: 'glyphicon glyphicon-home', path: HOME_URL },
+  { title: 'Sair', icon: 'glyphicon glyphicon-log-out', path: LOGOUT_URL}
+]

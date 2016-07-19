@@ -12,7 +12,7 @@ export function routerConfig(router) {
     router.map(routes)
 
     router.redirect({
-        '*': '/'
+      '*': '/'
     })
 
     //TODO: otimizar/refatorar esse bloco
@@ -24,31 +24,13 @@ export function routerConfig(router) {
    */
   router.beforeEach(function (transition) {
 
-      if (!router.app.authenticated ) {
-
-          return router.app.checkCredentials().then(function () {
-              if (transition.to.auth) {
-                  transition.next()
-              } else {
-                  transition.redirect(HOME_URL)
-              }
-          }).catch(function () {
-              if ( transition.to.auth ) {
-                  transition.redirect(LOGIN_URL)
-              } else {
-                  transition.next()
-              }
-          })
-      }
-
-      if (router.app.authenticated ) {
-          if (transition.to.auth) {
-              transition.next()
-          } else {
-              transition.redirect(HOME_URL)
-          }
-      }
-
+    if (transition.to.auth && !router.app.authenticated) {
+      transition.redirect(LOGIN_URL)
+    } else if (transition.to.login && router.app.authenticated) {
+      transition.redirect(HOME_URL)
+    } else {
+      transition.next()
+    }
 
   })
 }

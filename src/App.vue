@@ -2,12 +2,14 @@
 
     import store from './vuex/store'
     import authGetters from './vuex/auth/getters'
-    import authActions from './vuex/auth/actions'
-    import authService from './services/authService'
     import notificationGetters from './vuex/notification/getters'
-    import notificationActions from './vuex/notification/actions'
-    import Menu from './content/default/Menu.vue'
+    import navbar from './components/navbar.vue'
     import alert from 'vue-strap/src/Alert.vue'
+
+    import notificationService from './services/notificationService'
+    import authService from './services/authService'
+
+    import { HOME_URL, LOGIN_URL } from './router/paths'
 
     export default {
 
@@ -18,84 +20,71 @@
                 user: authGetters.user,
                 authenticated: authGetters.authenticated,
                 show: notificationGetters.show,
-                notifyOptions: notificationGetters.options
-            },
-
-            actions: {
-                setToken: authActions.setToken,
-                setUser: authActions.setUser,
-                logout: authActions.logout,
-                dismissNotification: notificationActions.dismissNotification,
-                showLoginNotAuthorized: notificationActions.loginNotAuthorized,
-                showServerError: notificationActions.serverError,
-                showConnectionError: notificationActions.connectionError,
-                showInvalidToken: notificationActions.invalidToken
+                notificationOptions: notificationGetters.options
             }
         },
 
+        ready () {
+
+            //First AUTH CHECK
+            let token = localStorage.getItem('jwt-token')
+
+            if (token === null) {
+                return this.$router.go(LOGIN_URL)
+            }
+
+            authService.getUserProfile(this, token).then(function (res) {
+
+                let user = res.data.user
+                //CREDENTIALS FOUND AND VALID
+                authService.setAuthentication(token, user)
+                this.$router.go(HOME_URL)
+
+            }).catch(function (res) {
+
+                switch (res.status) {
+                    case 400:
+                        notificationService.show(notificationService.INVALID_TOKEN)
+                        break
+                    case 401:
+                        if (res.error = 'token_invalid') {
+                            this.showNotification(notificationService.INVALID_TOKEN)
+                            break
+                        }
+                        this.showNotification(notificationService.USER_UNAUTHORIZED)
+                        break
+                    case 500:
+                        this.showNotification(notificationService.INTERNAL_SERVER_ERROR)
+                        break
+                    default:
+                        this.showNotification(notificationService.CONNECTION_ERROR)
+                        break
+
+                }
+                authService.removeAuthentication()
+            }) //-----> authService.getUserProfile
+
+        },
+
         components: {
-            Menu,
+            navbar,
             alert
         },
 
         data () {
             return {
-                showNotification: false
-            }
-        },
-
-        methods: {
-            checkCredentials () {
-                let storedToken = localStorage.getItem('jwt-token')
-
-                if( storedToken === null ) {
-                    return Promise.reject()
-                }
-
-                return authService.getUserProfile(this, storedToken).then(function (res) {
-
-                    let user = res.data.user
-                    //CREDENTIALS FOUND AND VALID
-                    this.setToken(storedToken)
-                    this.setUser(user)
-
-                }).catch(function (res) {
-
-                    switch (res.status) {
-                        case 400:
-                            this.showInvalidToken()
-                            break
-                        case 401:
-                            this.showLoginNotAuthorized()
-                            break
-                        case 500:
-                            router.app.showServerError()
-                            break
-                        default:
-                            this.showConnectionError()
-                            break
-                    }
-                    this.logout()
-
-                })
-            }
-        },
-
-        computed: {
-            notificationIcon () {
-                return this.notifyOptions.type == 'success' ? 'glyphicon-ok-sign' :
-                        this.notifyOptions.type == 'danger' ? 'glyphicon-remove-sign' : 'glyphicon-info-sign'
+                notificationVisible: false
             }
         },
 
         watch: {
             show (val) {
-                this.showNotification = val
+                this.notificationVisible = val
             },
 
-            showNotification (val) {
+            notificationVisible (val) {
                 if(!val) {
-                    this.dismissNotification()
+                    notificationService.hide()
                 }
             }
         }
@@ -105,19 +94,19 @@
 <template>
     <div id="app">
         <alert name="apiErrorAlert"
-               :show.sync="showNotification"
-               :duration="notifyOptions.duration || 3000"
-               :type="notifyOptions.type || 'success' "
+               :show.sync="notificationVisible"
+               :duration="notificationOptions.duration || 3000"
+               :type="notificationOptions.type || 'success' "
                width="400px"
                placement="top-right"
                dismissable
         >
-            <i class="glyphicon" :class="notificationIcon"></i>
-            <strong>{{ notifyOptions.title }}</strong>
-            <p>{{ notifyOptions.message }}</p>
-            <small><em>{{ notifyOptions.description }}</em></small>
+            <i :class="notificationOptions.icon"></i>
+            <strong>{{ notificationOptions.title }}</strong>
+            <p>{{ notificationOptions.message }}</p>
+            <small><em>{{ notificationOptions.description }}</em></small>
         </alert>
-        <menu :visible="authenticated" :user="user"></menu>
+        <navbar :visible="authenticated" :user="user"></navbar>
         <div class="container">
             <router-view></router-view>
         </div>

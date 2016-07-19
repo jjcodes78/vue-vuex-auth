@@ -5,7 +5,7 @@
 const SET_USER = 'SET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const SET_TOKEN = 'SET_TOKEN'
-const CLEAR_TOKEN = 'CLEAR_TOKEN'
+const REMOVE_TOKEN = 'REMOVE_TOKEN'
 
 const state = {
   token: null,
@@ -28,7 +28,7 @@ const mutations = {
     state.token = token
   },
 
-  [CLEAR_TOKEN] (state) {
+  [REMOVE_TOKEN] (state) {
     state.token = null
   }
 }

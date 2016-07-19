@@ -2,6 +2,7 @@
  * Created by squad on 16/07/16.
  */
 
+import store from '../vuex/store'
 import { API_AUTH_URL, API_LOGOUT_URL, API_USER_PROFILE_URL } from '../router/paths'
 
 /**
@@ -40,8 +41,22 @@ const logout = function (context, token) {
   })
 }
 
+const setAuthentication = function (token, user) {
+  localStorage.setItem('jwt-token', token)
+  store.dispatch('SET_TOKEN', token)
+  store.dispatch('SET_USER', user)
+}
+
+const removeAuthentication = function () {
+  localStorage.removeItem('jwt-token')
+  store.dispatch('REMOVE_TOKEN')
+  store.dispatch('REMOVE_USER')
+}
+
 export default {
   getUserProfile,
   login,
-  logout
+  logout,
+  setAuthentication,
+  removeAuthentication
 }
