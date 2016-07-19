@@ -24,11 +24,9 @@ export function routerConfig(router) {
 
     if (!authService.isLoggedIn()) {
       token = localStorage.getItem('jwt-token')
-    } else {
-      return transition.next()
     }
 
-    if (transition.to.auth && token !== null) {
+    if (transition.to.auth && token !== null && !authService.isLoggedIn()) {
 
       authService.setToken(token)
       return authService.getUserProfile()
