@@ -17,22 +17,16 @@
       }
     },
 
-    methods: {
-
-    },
-
     computed: {
       profileAvatar () {
         return this.user.avatar_url || 'https://avatars2.githubusercontent.com/u/12722517?v=3&u=18bf882b10e7cde77ce61d35e03e9e01e4c0f151&s=140'
       },
 
-      profileName () {
-        return this.user.name
+      logoutPath () {
+        return {
+          path: LOGOUT_URL
+        }
       }
-    },
-
-    ready () {
-      window.console.log(links);
     }
   }
 </script>
@@ -44,7 +38,7 @@
         <span class="navbar-brand">Vue/Vuex com JWT-Auth</span>
       </div>
       <template v-if="visible">
-        <sidebar :show.sync="showProfile" placement="right" header="Perfil" :width="300">
+        <sidebar :show.sync="showProfile" placement="right" header="Perfil" :width="500">
           <div>
             <div class="row well-sm">
               <div class="col-md-3">
@@ -87,6 +81,12 @@
             <li>
               <a href="#" class="navbar-link" @click="showProfile = true">
                 {{ user.name }}
+              </a>
+            </li>
+            <li>
+              <a href="#" v-link="logoutPath" class="navbar-link">
+                <i class="glyphicon glyphicon-log-out"></i>
+                <span>Sair</span>
               </a>
             </li>
           </ul>

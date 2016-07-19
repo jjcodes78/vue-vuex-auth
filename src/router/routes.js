@@ -8,7 +8,7 @@
 import Main from '../content/default/Main.vue'
 import Login from '../content/auth/Login.vue'
 import Logout from '../content/auth/Logout.vue'
-import NotFound from '../content/default/NotFound.vue'
+import About from '../content/default/About.vue'
 import * as path from './paths'
 
 const routes = {
@@ -18,10 +18,14 @@ const routes = {
   },
   [path.LOGIN_URL]: {
     component: Login,
-    login: true
+    guest: true
   },
   [path.LOGOUT_URL]: {
     component: Logout,
+    auth: true
+  },
+  [path.ABOUT_URL]: {
+    component: About,
     auth: true
   }
 }

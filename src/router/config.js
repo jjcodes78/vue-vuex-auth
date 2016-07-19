@@ -5,17 +5,13 @@
  * - e monitora a cada transição se há um usuário logado
  */
 import routes from './routes'
+import authService from '../services/authService'
 import { HOME_URL, LOGIN_URL } from './paths'
 
 export function routerConfig(router) {
 
-    router.map(routes)
+  router.map(routes)
 
-    router.redirect({
-      '*': '/'
-    })
-
-    //TODO: otimizar/refatorar esse bloco
   /**
    * A cada transição é verificada se:
    * - a rota precisa de autenticação para ser visitada
@@ -24,13 +20,43 @@ export function routerConfig(router) {
    */
   router.beforeEach(function (transition) {
 
-    if (transition.to.auth && !router.app.authenticated) {
-      transition.redirect(LOGIN_URL)
-    } else if (transition.to.login && router.app.authenticated) {
-      transition.redirect(HOME_URL)
+    let token = null
+
+    if (!authService.isLoggedIn()) {
+      token = localStorage.getItem('jwt-token')
     } else {
+      return transition.next()
+    }
+
+    if (transition.to.auth && token !== null) {
+
+      authService.setToken(token)
+      return authService.getUserProfile()
+        .then(function (res) {
+          authService.setUser(res.data.user)
+          transition.next()
+        }).catch(function () {
+          authService.remove()
+          transition.redirect(LOGIN_URL)
+        })
+    } else if (transition.to.auth && !authService.isLoggedIn()) {
+
+      transition.redirect(LOGIN_URL)
+
+    } else if (transition.to.guest && authService.isLoggedIn()) {
+
+      transition.redirect(transition.from.path)
+
+    } else {
+
       transition.next()
+
     }
 
   })
+
+  router.redirect({
+    '*': '/'
+  })
+
 }

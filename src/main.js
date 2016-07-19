@@ -1,9 +1,10 @@
-import Vue from 'vue'
-import App from './App.vue'
-import VueRouter from 'vue-router'
-import { routerConfig } from './router/config'
-import VueResource from 'vue-resource'
-import VueValidator from 'vue-validator'
+import Vue from "vue"
+import VueResource from "vue-resource"
+import VueRouter from "vue-router"
+
+import App from "./App.vue"
+import { routerConfig } from "./router/config"
+import VueValidator from "vue-validator"
 
 Vue.use(VueValidator)
 Vue.use(VueRouter)
@@ -15,4 +16,4 @@ let router = new VueRouter()
 routerConfig(router)
 
 //Inicia o Router
-router.start(App, 'App')
+router.start(App, "App")

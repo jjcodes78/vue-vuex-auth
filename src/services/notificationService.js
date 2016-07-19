@@ -9,7 +9,8 @@ const CONNECTION_ERROR = {
   type: 'danger',
   title: 'Oops! Erro',
   message: 'Verifique a conexão e tente novamente.',
-  description: 'Não foi possível estabelecer uma conexão com o serviço. (ERR_CONNECTION_REFUSED)'
+  description: 'Não foi possível estabelecer uma conexão com o serviço. (ERR_CONNECTION_REFUSED)',
+  icon: 'glyphicon glyphicon-remove-sign'
 }
 
 const INTERNAL_SERVER_ERROR = {
@@ -17,7 +18,8 @@ const INTERNAL_SERVER_ERROR = {
   type: 'danger',
   title: 'Oops! Erro',
   message: 'Erro interno do servidor.',
-  description: 'Não foi possível estabelecer uma conexão com o serviço. (INTERNAL_SERVER_ERROR)'
+  description: 'Não foi possível estabelecer uma conexão com o serviço. (INTERNAL_SERVER_ERROR)',
+  icon: 'glyphicon glyphicon-remove-sign'
 }
 
 // Notificações de login
@@ -25,7 +27,8 @@ const USER_LOGGED_IN = {
   duration: 3000,
   type: 'success',
   title: 'OK!',
-  message: 'Login efetuado com sucesso!'
+  message: 'Login efetuado com sucesso!',
+  icon: 'glyphicon glyphicon-ok-sign'
 }
 
 const USER_LOGGED_OUT = {
@@ -33,7 +36,8 @@ const USER_LOGGED_OUT = {
   type: 'success',
   title: 'OK!',
   message: 'Logout efetuado com sucesso!',
-  description: 'Faça login novamente para voltar a utilizar a aplicação.'
+  description: 'Faça login novamente para voltar a utilizar a aplicação.',
+  icon: 'glyphicon glyphicon-ok-sign'
 }
 
 const INVALID_TOKEN = {
@@ -41,7 +45,8 @@ const INVALID_TOKEN = {
   type: 'danger',
   title: 'Oops! Erro',
   message: 'E-mail e/ou senha inválidos.',
-  description: 'Contate o administrador do sistema. (UNAUTHORIZED)'
+  description: 'Contate o administrador do sistema. (UNAUTHORIZED)',
+  icon: 'glyphicon glyphicon-remove-sign'
 }
 
 const USER_UNAUTHORIZED = {
@@ -49,7 +54,8 @@ const USER_UNAUTHORIZED = {
   type: 'danger',
   title: 'Oops! Erro',
   message: 'Token de acesso inválido.',
-  description: 'Efetue login novamente ou contate o administrador do sistema. (INVALID_TOKEN)'
+  description: 'Efetue login novamente ou contate o administrador do sistema. (INVALID_TOKEN)',
+  icon: 'glyphicon glyphicon-remove-sign'
 }
 
 const ACCESS_FORBIDDEN = 'ACCESS_FORBIDDEN'             // status 403
